@@ -1,0 +1,35 @@
+{
+	"main": [
+		{
+			"name": "Home",
+			"url": "/"
+		},
+		{
+			"name": "Features",
+			"url": "/#features"
+		},
+
+		{
+			"name": "Explore",
+			"url": "/explore"
+		},
+		{
+			"name": "Contact",
+			"url": "/contact"
+		}
+	],
+	"footer": [
+		{
+			"name": "Explore",
+			"url": "/explore"
+		},
+		{
+			"name": "Get Started",
+			"url": "/get-started"
+		},
+		{
+			"name": "Privacy Policy",
+			"url": "/privacy-policy"
+		}
+	]
+}

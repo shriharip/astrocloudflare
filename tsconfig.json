@@ -1,0 +1,43 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "moduleDetection": "force",
+    "target": "ES2022",
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": false,
+    "jsx": "preserve",
+    "declaration": true,
+    "pretty": true,
+    "newLine": "lf",
+    "stripInternal": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noEmitOnError": true,
+    "useDefineForClassFields": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/layouts/*": ["src/layouts/*"],
+      "@/assets?*": ["src/assets/*"]
+    },
+    "jsxImportSource": "solid-js"
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.astro",
+    "drizzle.config.cjs"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

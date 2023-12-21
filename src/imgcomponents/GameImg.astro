@@ -1,0 +1,40 @@
+---
+import {Image } from 'astro:assets';
+
+
+import GameImage1 from './../assets/games/jeshoots-com-eCktzGjC-iU-unsplash.jpg';
+import GameImage2 from './../assets/games/nadine-shaabana-YsPnamiHdmI-unsplash.jpg';
+
+interface Props{
+	width?: number;
+	height?: number;
+	val: number;
+}
+
+const { width, height, val } = Astro.props; 
+
+---
+
+{
+	val === 1 ? 
+	width && height ? <Image src={GameImage1} alt="AI Image background" widths={[
+	240, 540, 720, GameImage1.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${GameImage1.width}px`} width={width} height={height}  /> 
+	: 
+	width ? <Image src={GameImage1} alt="AI Image background" widths={[
+	240, 540, 720, GameImage1.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${GameImage1.width}px`} width={width} /> 
+	: 
+	height ? <Image src={GameImage1} alt="AI Image background" widths={[
+	240, 540, 720, GameImage1.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${GameImage1.width}px`} height={height}  /> 
+	: <Image src={GameImage1} alt="AI Image background" widths={[
+	240, 540, 720, GameImage1.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${GameImage1.width}px`}  /> : 
+	width && height ? <Image src={GameImage2} alt="AI Image background" widths={[
+	240, 540, 720, GameImage2.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${GameImage2.width}px`} width={width} height={height}  /> 
+	: 
+	width ? <Image src={GameImage2} alt="AI Image background" widths={[
+	240, 540, 720, GameImage2.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${GameImage2.width}px`} width={width} /> 
+	: 
+	height ? <Image src={GameImage2} alt="AI Image background" widths={[
+	240, 540, 720, GameImage2.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${GameImage2.width}px`} height={height}  /> 
+	: <Image src={GameImage2} alt="AI Image background" widths={[
+	240, 540, 720, GameImage2.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${GameImage2.width}px`} />
+}

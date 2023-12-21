@@ -1,0 +1,27 @@
+---
+import {Image } from 'astro:assets';
+
+
+import HardImage from './../assets/hardware/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg';
+
+interface Props{
+	width?: number;
+	height?: number;
+}
+
+const { width, height } = Astro.props;
+
+---
+
+{
+	width && height ? <Image src={HardImage} alt="AI Image background" widths={[
+	240, 540, 720, HardImage.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${HardImage.width}px`} width={width} height={height}  /> 
+	: 
+	width ? <Image src={HardImage} alt="AI Image background" widths={[
+	240, 540, 720, HardImage.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${HardImage.width}px`} width={width} /> 
+	: 
+	height ? <Image src={HardImage} alt="AI Image background" widths={[
+	240, 540, 720, HardImage.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${HardImage.width}px`} height={height}  /> 
+	: <Image src={HardImage} alt="AI Image background" widths={[
+	240, 540, 720, HardImage.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${HardImage.width}px`}  />
+}

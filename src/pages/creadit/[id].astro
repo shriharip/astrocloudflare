@@ -1,0 +1,210 @@
+---
+import Base from "@/layouts/Base.astro";
+import Options from "@/config/options.json";
+import type { IFeedExplore } from "@/types";
+
+const { id } = Astro.params;
+
+let listings: Array<IFeedExplore> | undefined = [];
+let listing: IFeedExplore | undefined;
+
+const url = Astro.url.origin + '/api/listit'; 
+
+try {
+	const response = await fetch(url, { method: 'GET' })
+	listings = (await response.json()).body;
+	listing = listings?.find((list) => list.id.toString() === id);
+} catch (error) {
+	console.log(error)
+}
+
+listing = listings?.find((list) => list.id.toString() === id);
+
+---
+
+<Base>
+  <div class="flex flex-col justify-center items-center">
+    <h1 class="prose font-bold text-2xl text-primary">
+      You are editing your listing!
+    </h1>
+    <p class="prose text-base my-3 italic">
+      Make sure to add relevant information. ↓
+    </p>
+  </div>
+
+  <div class="flex justify-center">
+    <form action="/api/listit" method="post" class="py-10 px-10">
+      <div class="chat chat-start">
+        <div class="chat-bubble dark:bg-secondary">Basic Details</div>
+      </div>
+
+      <label for="website" class="form-control label-text font-bold"
+        >Website *</label
+      >
+      <input
+        name="website"
+        type="text"
+        placeholder="https://example.com"
+        class="input input-bordered w-full max-w-xs"
+        required
+        autocomplete="website"
+        id="website"
+				value={listing?.url}
+      />
+      <div class="label">
+        <span class="label-text-alt">A link that you want sponsorship for.</span
+        >
+      </div>
+
+      <label
+        for="name"
+        class="mt-2 form-control label-text font-bold w-full max-w-md"
+        >Name *</label
+      >
+      <input
+        name="name"
+        type="text"
+        placeholder="Rust Mastadon"
+        class="input input-bordered w-full max-w-xs"
+        required
+        autocomplete="name"
+        id="name"
+				value={listing?.title}
+      />
+      <div class="label">
+        <span class="label-text-alt"
+          >We create a posting at https://sponsor.rs/name</span
+        >
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <div class="label">
+          <span class="label-text font-bold">Choose a Category *</span>
+        </div>
+        {
+						Options.categories.map((category, index) => (
+
+            <span class="text-sm">
+              {" "}
+              <input
+                class="radio"
+                type="radio"
+								value={index+1}
+                name="category"
+								required
+                aria-label={category}
+								checked={listing?.category.catg === category}
+              />{" "}
+              {category}
+            </span>
+          ))
+        }
+        <div class="label">
+          <span class="label-text font-bold">Choose a Domain *</span>
+        </div>
+        {
+          Options.domains.map((domain, index) => (
+            <span class="text-sm">
+              {" "}
+              <input
+                class="radio"
+                type="radio"
+								value={index + 1}
+                name="domain"
+								required
+                aria-label={domain}
+								checked={listing?.domain.id === index + 1}
+              />{" "}
+              {domain}
+            </span>
+          ))
+        }
+        <div class="chat chat-start">
+          <div class="chat-bubble dark:bg-secondary">About</div>
+        </div>
+        <label class="form-control">
+          <div class="label">
+            <span class="label-text font-bold">About your listing</span>
+          </div>
+          <textarea
+            name="content"
+						maxlength="300"
+            class="textarea textarea-bordered h-24 max-w-md"
+						placeholder={listing?.info.content}
+           
+          ></textarea>
+          <div class="label">
+            <span class="label-text-alt"
+              >If you do not want to create an account to manage the listing
+              then please provide all the information for others to reach out to
+              you in this section.</span
+            >
+          </div>
+        </label>
+
+        <label class="form-control">
+          <div class="label">
+            <span class="label-text font-bold">What can you provide?</span>
+          </div>
+          <textarea
+            name="onOffer"
+						maxlength="300"
+            class="textarea textarea-bordered h-24 max-w-md"
+            placeholder={listing?.info.onOfferContent}
+          ></textarea>
+          <div class="label">
+            <span class="label-text-alt"
+              >If you do not want to create an account to manage the listing
+              then please provide all the information for others to reach out to
+              you in this section.</span
+            >
+          </div>
+        </label>
+
+        <label class="form-control">
+          <div class="label">
+            <span class="label-text font-bold">Offerings.</span>
+          </div>
+          <textarea
+            name="priceInfo"
+						maxlength="100"
+            class="textarea textarea-bordered h-24 max-w-md"
+            placeholder={listing?.info.priceInfo}
+          ></textarea>
+          <div class="label">
+            <span class="label-text-alt">This section is optional.</span>
+          </div>
+        </label>
+
+        <div id="preview" class="flex"></div>
+
+        <div class="chat chat-start">
+          <div class="chat-bubble dark:bg-secondary">Contact</div>
+        </div>
+
+        <label for="email" class="form-control label-text font-bold"
+          >Email</label
+        >
+
+        <input
+          name="email"
+          type="email"
+          placeholder="john@example.com"
+          class="input input-bordered w-full max-w-md"
+          autocomplete="email"
+          id="email"
+					value={listing?.author.anonymous ? "" : listing?.author.email}
+					disabled
+        />
+        <div class="label">
+          <span class="label-text-alt"
+            >We will not share your email with anyone. It is for you to manage
+            your listings.</span
+          >
+        </div>
+      </div>
+
+      <input type="submit" class="btn btn-primary max-w-sm" value="Save!" />
+    </form>
+  </div>
+</Base>

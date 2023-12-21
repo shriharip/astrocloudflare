@@ -1,0 +1,37 @@
+---
+import Base from "@/layouts/Base.astro";
+import Hero from "@/components/Hero.astro";
+import { getEntry, type CollectionEntry } from "astro:content";
+import Features from "@/components/Features.astro";
+import LogoClouds from "@/components/LogoClouds.astro";
+import Why from "@/components/Why.astro";
+import FAQs from "@/components/FAQs.astro";
+import CTA from "@/components/CTA.astro";
+
+const hero: CollectionEntry<"hero"> = await getEntry("hero", "hero");
+const features: CollectionEntry<"features"> = await getEntry(
+  "features",
+  "features",
+);
+const faqs: CollectionEntry<"faqs"> = await getEntry("faqs", "faq_content");
+---
+
+<Base>
+  <!-- Hero -->
+  <Hero hero={hero} />
+
+  <!-- we connect to lot of tools and services -->
+
+  <LogoClouds />
+
+  <Why />
+
+  <!-- Features -->
+  <Features features={features} />
+
+  <CTA />
+
+  <!-- faqs -->
+  <FAQs faqs={faqs} />
+	
+</Base>

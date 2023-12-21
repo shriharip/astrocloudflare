@@ -1,0 +1,25 @@
+---
+import {Image } from 'astro:assets';
+import MarkImage from './../assets/marketing/campaign-creators-yktK2qaiVHI-unsplash.jpg';
+
+interface Props{
+	width?: number;
+	height?: number;
+}
+
+const { width, height } = Astro.props;
+
+---
+
+{
+	width && height ? <Image src={MarkImage} alt="AI Image background" widths={[
+	240, 540, 720, MarkImage.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${MarkImage.width}px`} width={width} height={height}  /> 
+	: 
+	width ? <Image src={MarkImage} alt="AI Image background" widths={[
+	240, 540, 720, MarkImage.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${MarkImage.width}px`} width={width} /> 
+	: 
+	height ? <Image src={MarkImage} alt="AI Image background" widths={[
+	240, 540, 720, MarkImage.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${MarkImage.width}px`} height={height}  /> 
+	: <Image src={MarkImage} alt="AI Image background" widths={[
+	240, 540, 720, MarkImage.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${MarkImage.width}px`}  />
+}

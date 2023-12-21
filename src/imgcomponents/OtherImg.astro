@@ -1,0 +1,40 @@
+---
+import {Image } from 'astro:assets';
+
+import OtherImage1 from './../assets/other/milad-fakurian-nY14Fs8pxT8-unsplash.jpg';
+import OtherImage2 from './../assets/other/milad-fakurian-PGdW_bHDbpI-unsplash.jpg';
+
+
+interface Props{
+	width?: number;
+	height?: number;
+	val: number;
+}
+
+const { width, height, val } = Astro.props; 
+
+---
+
+{
+	val === 1 ? 
+	width && height ? <Image src={OtherImage1} alt="AI Image background" widths={[
+	240, 540, 720, OtherImage1.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${OtherImage1.width}px`} width={width} height={height}  /> 
+	: 
+	width ? <Image src={OtherImage1} alt="AI Image background" widths={[
+	240, 540, 720, OtherImage1.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${OtherImage1.width}px`} width={width} /> 
+	: 
+	height ? <Image src={OtherImage1} alt="AI Image background" widths={[
+	240, 540, 720, OtherImage1.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${OtherImage1.width}px`} height={height}  /> 
+	: <Image src={OtherImage1} alt="AI Image background" widths={[
+	240, 540, 720, OtherImage1.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${OtherImage1.width}px`}  /> : 
+	width && height ? <Image src={OtherImage2} alt="AI Image background" widths={[
+	240, 540, 720, OtherImage2.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${OtherImage2.width}px`} width={width} height={height}  /> 
+	: 
+	width ? <Image src={OtherImage2} alt="AI Image background" widths={[
+	240, 540, 720, OtherImage2.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${OtherImage2.width}px`} width={width} /> 
+	: 
+	height ? <Image src={OtherImage2} alt="AI Image background" widths={[
+	240, 540, 720, OtherImage2.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${OtherImage2.width}px`} height={height}  /> 
+	: <Image src={OtherImage2} alt="AI Image background" widths={[
+	240, 540, 720, OtherImage2.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${OtherImage2.width}px`} />
+}

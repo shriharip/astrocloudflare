@@ -1,0 +1,38 @@
+{
+  "site": {
+    "title": "Sponsors",
+    "base_url": "https://Astro_Daisy_Lucia.netlify.app",
+    "base_path": "/",
+    "trailing_slash": false,
+    "logo_width": "75",
+    "logo_height": "25",
+    "logo_text": "Sponsors"
+  },
+
+  "settings": {
+    "search": true,
+    "sticky_header": true,
+    "theme_switcher": true,
+    "default_theme": "system",
+    "pagination": 2,
+    "summary_length": 200,
+    "blog_folder": "blog"
+  },
+
+  "params": {
+    "contact_form_action": "#",
+    "copyright": "Designed And Developed by [TechVeda](https://techveda.dk)"
+  },
+
+  "navigation_button": {
+    "enable": true,
+    "label": "Get Started",
+    "link": "/creadit"
+  },
+
+  "metadata": {
+    "meta_author": "techveda.dk",
+    "meta_image": "/images/og-image.png",
+    "meta_description": "Find sponsors for your projects, community, or event. We are a community of sponsors and developers who want to help each other."
+  }
+}

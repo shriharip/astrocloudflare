@@ -1,0 +1,208 @@
+---
+import Base from '@/layouts/Base.astro'
+import Options from '@/config/options.json'
+import Card from '@/components/Card.astro';
+import { type IFeedExplore } from '@/types/index';
+
+const queryParam = Astro.url.searchParams.get('catg')!;
+let url;
+if(queryParam){
+	 url = Astro.url.origin + '/api/listit?catg=' + queryParam; 
+} else {
+	 url = Astro.url.origin + '/api/listit'; 
+}
+
+
+let data: Array<IFeedExplore> = [];
+
+try {
+	const response = await fetch(url, { method: 'GET' })
+	data = (await response.json()).body;
+} catch (error) {
+	console.log(error)
+}
+---
+<Base>
+
+	<main class="mx-auto max-w-7xl px-4 mt-12 sm:px-6 lg:px-8">
+		<h1 class="text-4xl font-bold tracking-tight">Our Partners</h1>
+		<p class="mt-4 max-w-3xl text-xl"> We try our best to keep spam out. But please exercise caution when you make arrangments with the owners.</p>
+		<div class="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
+				<div class="relative inline-block text-left">
+					<details class="dropdown">
+						<summary class="btn btn-md">Sort</summary>
+						<ul class="dropdown-content menu z-[1] w-52 rounded-box bg-base-100 p-2 shadow">
+							<li><a>Newest</a></li>
+							<li><a>Most Upvotes</a></li>
+						</ul>
+					</details>
+				</div>
+				<div class="drawer mx-2">
+					<input id="my-drawer" type="checkbox" class="drawer-toggle" />
+					<div class="drawer-content">
+						<!-- Page content here -->
+						<label for="my-drawer" class="btn btn-md lg:hidden">Filters</label>
+					</div>
+					<div class="drawer-side">
+						<label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+						<ul class="menu min-h-full w-80 bg-base-200 p-4">
+							<!-- Sidebar content here -->
+							<div class="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto py-4 pb-12 shadow-xl">
+								<div class="flex items-center justify-between px-4">
+									<h2 class="text-lg font-medium">Filters</h2>
+									<button type="button" class="-mr-2 flex h-10 w-10 items-center justify-center rounded-md p-2 text-gray-400">
+										<span class="sr-only">Close menu</span>
+										<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+											<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+										</svg>
+									</button>
+								</div>
+	
+								<!-- Filters -->
+								<form class="mt-4 border-t border-gray-200">
+									<h3 class="sr-only">Categories</h3>
+									<ul role="list" class="px-2 py-3 font-medium">
+										{
+											Options.categories.map((category) => (
+												<li>
+													<a href={`?catg=${category}`} class="block px-2 py-3">{category}</a>
+												</li>
+											))
+										}
+									</ul>
+	
+									<div class="border-t border-gray-200 px-4 py-6">
+										<h3 class="-mx-2 -my-3 flow-root">
+											<!-- Expand/collapse section button -->
+											<button type="button" class="flex w-full items-center justify-between px-2 py-3 text-gray-400 hover:text-gray-500" aria-controls="filter-section-mobile-0" aria-expanded="false">
+												<span class="font-medium ">Domain</span>
+												<span class="ml-6 flex items-center">
+													<!-- Collapse icon, show/hide based on section open state. -->
+													<svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+														<path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd" />
+													</svg>
+												</span>
+											</button>
+										</h3>
+										<!-- Filter section, show/hide based on section state. -->
+										<div class="pt-6" id="filter-section-mobile-0">
+
+											<div class="space-y-6">
+												<div class="flex label">
+													<input type="checkbox" name="selectall" id="filter-domain" name="selectall" checked />
+													<label for="selectall" class="ml-3 min-w-0 flex-1 label-text"> Select All</label>
+												</div>
+												{
+													Options.domains.map((domain) => (
+													<div class="flex label">
+													<input id="filter-domain" name={domain} value={domain} type="checkbox" checked class="h-4 w-4 rounded checkbox" />
+													<label for="filter-domain" class="ml-3 min-w-0 flex-1 label-text">{domain}</label>
+												</div>
+													))
+												}
+												</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</ul>
+					</div>
+				</div>
+			</div>
+	
+	
+		<section aria-labelledby="categories-heading" class="pb-24 pt-6">
+			<h2 id="categories-heading" class="sr-only">Categories</h2>
+	
+			<div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
+				<!-- Filters -->
+				<form class="hidden lg:block">
+					<h3 class="sr-only">Categories</h3>
+					<ul role="list" class="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium">
+						{
+							Options.categories.map((category) => (
+								<li>
+									<a href={`?catg=${category}`} class="block px-2 py-3">{category}</a>
+								</li>
+							))
+						}
+					</ul>
+					
+					<ul class="p-2 flex flex-col">
+
+						<li class="py-1">
+							<input name="selectall" value="all" type="checkbox"  id="selectall"
+							aria-label="select-all" checked  class="rounded"/>
+							<label for="selectall" class="">Select All</label>
+						</li>
+
+
+						<div id="selectallUnChecked">
+									{
+
+												Options.domains.map((domain) => (
+													<li class="py-1">
+														<input name={domain} value={domain} type="checkbox" 
+														aria-label={domain}  class="rounded"/>
+														<label for={domain} class="">{domain}</label>
+													</li>
+												))
+											}
+
+</div>
+<div id="selectallChecked">
+	{
+
+				Options.domains.map((domain) => (
+					<li class="py-1">
+						<input name={domain} value={domain} type="checkbox" 
+						aria-label={domain} checked disabled  class="rounded"/>
+						<label for={domain} class="">{domain}</label>
+					</li>
+				))
+			}
+
+</div>				
+								</ul>
+				</form>
+	
+				<!-- Product grid -->
+				<div class="lg:col-span-3">
+
+					{
+						data.map((val) => (
+							<Card { ...val } />
+						) 
+						)
+					}
+				</div>
+			</div>
+		</section>
+	</main>
+	
+</Base>
+
+<style>
+	#selectallUnChecked {
+		display: none;
+	}
+</style>
+
+<script is:inline >
+
+	const selectAll = document.getElementById('selectall');
+	const selectallChecked = document.getElementById('selectallChecked');
+	const selectallUnChecked = document.getElementById('selectallUnChecked');
+
+	selectAll.addEventListener('change', (event) => {
+		if (event.target.checked) {
+			selectallChecked.style.display = 'block';
+			selectallUnChecked.style.display = 'none';
+		} else {
+			selectallChecked.style.display = 'none';
+			selectallUnChecked.style.display = 'block';
+		}
+	});
+
+
+</script>

@@ -1,0 +1,84 @@
+---
+import Base from "@/layouts/Base.astro";
+import { Icon } from "astro-icon";
+
+// const searchParam = Astro.url.searchParams.get('filter')
+
+---
+<Base>
+
+<div class="flex justify-evenly">
+<div class="badge badge-primary p-4 cursor-pointer">
+	<a href="?filter=listings">Listings</a>
+</div>
+<div class="badge badge-primary p-4 cursor-pointer">
+	<a href="?filter=upvotes">Upvotes</a>
+</div>
+<div class="badge badge-primary p-4 cursor-pointer">
+	<a href="?filter=saves">Saves</a>
+</div>
+<div class="badge badge-primary p-4 cursor-pointer">
+	<a href="?filter=messages">Messages</a>
+</div>
+</div>
+<div class="divider"></div>
+
+<div class="overflow-x-auto">
+  <table class="table">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>URL</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- row 1 -->
+      <tr>
+        <th>1</th>
+        <td>Cy Ganderton</td>
+        <td>Quality Control Specialist</td>
+        <td>
+					<button class="btn btn-circle">
+						<Icon name="pencil" pack="mdi" />
+					</button>
+					<button class="btn btn-circle btn-outline">
+						<Icon name="delete" pack="mdi" />
+					</button>
+				</td>
+      </tr>
+      <!-- row 2 -->
+      <tr class="hover">
+        <th>2</th>
+        <td>Hart Hagerty</td>
+        <td>Desktop Support Technician</td>
+				<td>
+					<button class="btn btn-circle">
+						<Icon name="pencil" pack="mdi" />
+					</button>
+					<button class="btn btn-circle btn-outline">
+						<Icon name="delete" pack="mdi" />
+					</button>
+				</td>
+      </tr>
+      <!-- row 3 -->
+      <tr>
+        <th>3</th>
+        <td>Brice Swyre</td>
+        <td>Tax Accountant</td>
+        <td>
+					<button class="btn btn-circle">
+						<Icon width="20" height="20" name="pencil" pack="mdi" />
+					</button>
+					<button class="btn btn-circle btn-outline">
+						<Icon name="delete" pack="mdi" />
+					</button>
+				</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</Base>

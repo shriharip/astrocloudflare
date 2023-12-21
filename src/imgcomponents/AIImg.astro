@@ -1,0 +1,25 @@
+---
+import {Image } from 'astro:assets';
+import AIImage from './../assets/ai/steve-johnson-ZPOoDQc8yMw-unsplash.jpg';
+
+interface Props{
+	width?: number;
+	height?: number;
+}
+
+const { width, height } = Astro.props;
+
+---
+
+{
+	width && height ? <Image src={AIImage} alt="AI Image background" widths={[
+	240, 540, 720, AIImage.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${AIImage.width}px`} width={width} height={height}  /> 
+	: 
+	width ? <Image src={AIImage} alt="AI Image background" widths={[
+	240, 540, 720, AIImage.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${AIImage.width}px`} width={width} /> 
+	: 
+	height ? <Image src={AIImage} alt="AI Image background" widths={[
+	240, 540, 720, AIImage.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${AIImage.width}px`} height={height}  /> 
+	: <Image src={AIImage} alt="AI Image background" widths={[
+	240, 540, 720, AIImage.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${AIImage.width}px`}  />
+}

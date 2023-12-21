@@ -1,0 +1,49 @@
+---
+import Base from "@/layouts/Base.astro";
+
+const listingId = Astro.url.searchParams.get('listing');
+const code = Astro.url.searchParams.get('code');
+const email = Astro.url.searchParams.get('email');
+
+if(code && email){
+	const posturl = Astro.url.origin + '/api/verify?listing=' + listingId;
+	fetch(posturl, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({code: code, email: email})
+	})
+	.then(response => response.json())
+	.then(data => {
+		if(data.status == 'success'){
+			if(listingId){
+			window.location.href = Astro.url.origin + '/' + listingId;
+			}
+		}else{
+			alert('Invalid Code');
+		}
+	});
+}
+
+const posturl = Astro.url.origin + '/api/verify?listing=' + listingId + '&email=' + email;
+
+---
+
+<Base title="Enter the code sent to your email">
+  <section class="flex flex-col justify-center text-center min-h-screen">
+
+          <h3
+            class="text-[2rem] block font-bold text-dark dark:text-darkmode-dark"
+          >
+            Code from Email
+          </h3>
+
+            <form action={posturl} method="post" class="flex justify-center">
+							<input type="text" name="code" class="justify-center text-slate-800"  placeholder="zz2345jk" required>
+							
+								<button type="submit" class="btn btn-primary mx-2">Verify</button>
+						</form>
+      </div>
+  </section>
+</Base>

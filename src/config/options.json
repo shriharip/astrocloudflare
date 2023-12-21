@@ -1,0 +1,35 @@
+{
+	"categories": [
+		"Events/Conferences",
+		"Open Source Projects",
+		"News Letters",
+		"Podcast",
+		"AI/Chatbot",
+		"Design Assets",
+		"Forum/Community",
+		"Discord",
+		"YouTube",
+		"Blog/Notion",
+		"Book/Course",
+		"Crypto",
+		"AirBnB",
+		"Other"
+	],
+	"domains": [
+		"Health",
+		"Finance",
+		"Business",
+		"Marketing",
+		"Design",
+		"Games",
+		"Programming",
+		"AI",
+		"Hardware",
+		"Software",
+		"Education",
+		"Entertainment",
+		"Travel",
+		"Food",
+		"Other"
+	]
+}

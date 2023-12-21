@@ -1,0 +1,21 @@
+---
+import type { CollectionEntry } from "astro:content";
+import HeroImage from "@/assets/sander-traa-hero-unsplash.jpg";
+import { Image } from "astro:assets";
+interface Props {
+	hero: CollectionEntry<"hero">;
+}
+
+const {hero} = Astro.props;
+
+---
+<div class="hero min-h-screen bg-base-200">
+  <div class="hero-content flex-col lg:flex-row">
+    <Image src={HeroImage} alt="Empty Stadium with Ad" class="max-w-sm rounded-lg shadow-2xl" />
+    <div class="mx-10">
+      <h1 class="text-5xl font-bold">{hero.data.title}</h1>
+      <p class="py-6">{hero.data.content}</p>
+      <button class="btn btn-primary">{hero.data.button?.label}</button>
+    </div>
+  </div>
+</div>

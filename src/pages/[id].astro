@@ -1,0 +1,140 @@
+---
+
+import Base from "@/layouts/Base.astro";
+import type { IFeedExplore } from "@/types";
+import BackImg from "@/imgcomponents/BackImg.astro";
+import { UpvoteBtn } from "@/components/Upvote";
+import { SaveBtn } from "@/components/Save";
+
+const { id } = Astro.params;
+
+let listings: Array<IFeedExplore> | undefined = [];
+let listing: IFeedExplore | undefined;
+
+const res =  await fetch (Astro.url.origin + '/api/listit')
+listings = ( await res.json()).body;
+
+
+listing = listings && listings.find((list) => list.id.toString() === id);
+
+
+const posturl = Astro.url.origin + '/api/email?listing=' + id;
+const editurl = Astro.url.origin + '/creadit/' + id;
+
+const cookies = Astro.cookies.get('sponsor');
+
+const verfied =  cookies ? cookies.json().emailVerified : false;
+const email = decodeURIComponent(cookies?.json().email ?? '');
+const owned = listing?.author.email === email;
+console.log(listing, 'listing' );
+
+---
+
+<Base>
+  <div aria-hidden="true" class="relative">
+		<div class="object-fit object-center">
+			{
+				<BackImg domain={listing?.domain.id ?? 15} />
+			}
+		</div>
+
+    <div class="md:absolute inset-0 bg-transparent"
+
+  <div class="relative mt-12 mx-auto max-w-7xl px-4 pb-16 sm:px-6 sm:pb-24 lg:px-8">
+    <div class="mx-auto max-w-2xl text-center lg:max-w-4xl">
+      <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">{listing?.title}</h2>
+      <p class="mt-4 text-base">{listing?.info.content}</p>
+    </div> 
+
+    <dl class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:max-w-none lg:grid-cols-3 lg:gap-x-8">
+      <div class="border-t border-gray-200 pt-4 px-4">
+        <dt class="font-bold text-lg ">category</dt>
+        <dd class="mt-2 text-sm ">{listing?.category.catg}</dd>
+      </div>
+      <div class="border-t border-gray-200 pt-4 px-4">
+        <dt class="font-bold ">Domain</dt>
+        <dd class="mt-2 text-sm ">{listing?.domain.domain}</dd>
+      </div>
+      <div class="border-t border-gray-200 pt-4 px-4">
+        <dt class="font-bold ">On Offer</dt>
+        <dd class="mt-2 text-sm ">{listing?.info.onOfferContent}</dd>
+      </div>
+      <div class="border-t border-gray-200 pt-4 px-4">
+        <dt class="font-bold ">Pricing</dt>
+        <dd class="mt-2 text-sm ">{ listing?.info.priceInfo }</dd>
+      </div>
+		
+			<div class="border-t border-gray-200 pt-4 px-4">
+        <dt class="font-bold ">Traffic</dt>
+        <dd class="mt-2 text-sm ">
+					Coming soon
+				</dd>
+      </div>
+			<div class="border-t border-gray-200 pt-4 px-4">
+        <dt class="font-bold ">Ranking</dt>
+        <dd class="mt-2 text-sm ">
+					coming soon
+				</dd>
+      </div>
+			<div class="border-t border-gray-200 pt-4 px-4">
+        <dt class="font-bold ">Keywords</dt>
+        <dd class="mt-2 text-sm ">
+					coming soon
+				</dd>
+      </div>
+			<div class="border-t border-gray-200 pt-4 px-4">
+        <dt class="font-bold ">Upvotes</dt>
+        <!-- <dd class="mt-2 text-sm ">{listing?.upvotes}</dd> -->
+				<dd class="mt-2 text-sm ">
+					{!owned && verfied && <UpvoteBtn client:load email={email} count={listing?.upvotes?? 0} listingId={listing?.id ?? 0} />}
+					{!owned && !verfied && <label for="manage" class="btn btn-sm btn-primary">Upvote</label>}
+				</dd>
+      </div>
+      <div class="border-t border-gray-200 pt-4 px-4">
+        <dt class="font-bold ">Saves</dt>
+        <!-- <dd class="mt-2 text-sm "> -->
+					<!-- {listing?.saves} -->
+					<dd class="mt-2 text-sm ">
+						{!owned && verfied && <SaveBtn client:load email={email} count={listing?.saves?? 0} listingId={listing?.id ?? 0} />}
+
+						{
+							!owned && !verfied && <label for="manage" class="btn btn-sm btn-primary">Save</label>
+						}
+				</dd>
+      </div>
+    </dl>
+
+{
+	verfied && owned &&  
+  <a href={editurl} class="mt-4 mx-2 btn font-bold z-30 btn-sm btn-primary px-4">Edit</a>
+}
+	
+	{
+		// The button to open modal -->
+		!verfied && 
+		<label for="manage" class=" mt-4 btn cursor-pointer">Manage Listing
+			</label> 
+		}
+
+
+<input type="checkbox" id="manage" class="modal-toggle" />
+<div class="modal" role="dialog">
+  <div class="modal-box">
+    <h3 class="text-lg font-bold">Hello, !</h3>
+    <p class="py-4">Please enter the email and get a code to interact with this listing!</p>
+    <form  action={posturl} method="post">
+		<input type="email" name="email" placeholder="Enter your email" class="input input-bordered" />
+    <button type="submit" class="btn btn-primary">Get Code</button>
+    </form>
+
+	<div class="modal-action">
+		<label for="manage" class="btn">Close!</label>
+	</div>
+</div>
+  </div>
+
+</div>
+</div>
+
+</Base>
+

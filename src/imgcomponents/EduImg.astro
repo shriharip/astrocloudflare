@@ -1,0 +1,27 @@
+---
+import {Image } from 'astro:assets';
+
+import EduImage from './../assets/education/kenny-eliason-zFSo6bnZJTw-unsplash.jpg';
+
+
+interface Props{
+	width?: number;
+	height?: number;
+}
+
+const { width, height } = Astro.props;
+
+---
+
+{
+	width && height ? <Image src={EduImage} alt="AI Image background" widths={[
+	240, 540, 720, EduImage.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${EduImage.width}px`} width={width} height={height}  /> 
+	: 
+	width ? <Image src={EduImage} alt="AI Image background" widths={[
+	240, 540, 720, EduImage.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${EduImage.width}px`} width={width} /> 
+	: 
+	height ? <Image src={EduImage} alt="AI Image background" widths={[
+	240, 540, 720, EduImage.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${EduImage.width}px`} height={height}  /> 
+	: <Image src={EduImage} alt="AI Image background" widths={[
+	240, 540, 720, EduImage.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${EduImage.width}px`}  />
+}

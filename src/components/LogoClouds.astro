@@ -1,0 +1,26 @@
+---
+
+const theme = Astro.cookies.get('theme')?.value;
+const isLight = theme === 'cyberpunk' || theme === 'retro';
+console.log(isLight);
+---
+
+<div class="py-24 sm:py-50">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <h2 class="text-center text-4xl font-semibold leading-8">We have a huge set of integrations!
+			</h2>
+				<p class="my-4 text-xl text-center">We're always adding more integrations and will have connected APIs to more services.</p>			
+    <div class="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:max-w-none lg:grid-cols-8">
+
+			<img alt="twitchLogo" height="50" width="50" src="https://cdn.simpleicons.org/twitch"/>
+			<img alt="githubLogo" height="50" width="50" src="https://cdn.simpleicons.org/github"/>
+			<img alt="slackLogo" height="50" width="50" src="https://cdn.simpleicons.org/slack" />
+			<img alt="figmaLogo" height="50" width="50" src="https://cdn.simpleicons.org/figma" />
+			<img alt="discord Logo" height="50" width="50" src="https://cdn.simpleicons.org/discord" />
+			<img alt="notionLogo" height="50" width="50" src="https://cdn.simpleicons.org/notion" />
+			<img alt="airbnbLogo" height="50" width="50" src="https://cdn.simpleicons.org/airbnb" />
+			<img alt="YouTubeLogo" height="50" width="50" src="https://cdn.simpleicons.org/youtube" />
+				
+    </div>
+  </div>
+</div>

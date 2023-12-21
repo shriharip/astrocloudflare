@@ -1,0 +1,184 @@
+---
+import Base from "@/layouts/Base.astro";
+import Options from "@/config/options.json";
+---
+
+<Base>
+  <div class="flex flex-col justify-center items-center">
+    <h1 class="prose font-bold text-2xl text-primary">
+      Let's get you started!
+    </h1>
+    <p class="prose text-base my-3 italic">
+      Fill up as much as possible to get max coverage ↓
+    </p>
+  </div>
+
+  <div class="flex justify-center">
+    <form action="/api/listit" method="post" class="py-10 px-10">
+      <div class="chat chat-start">
+        <div class="chat-bubble">Basic Details</div>
+      </div>
+
+      <label for="website" class="form-control label-text font-bold"
+        >Website *</label
+      >
+      <input
+        name="website"
+        type="text"
+        placeholder="https://example.com"
+        class="input input-bordered w-full max-w-xs"
+        required
+        autocomplete="website"
+        id="website"
+      />
+      <div class="label">
+        <span class="label-text-alt">A link that you want sponsorship for.</span
+        >
+      </div>
+
+      <label
+        for="name"
+        class="mt-2 form-control label-text font-bold w-full max-w-md"
+        >Name *</label
+      >
+      <input
+        name="name"
+        type="text"
+        placeholder="Rust Mastadon"
+        class="input input-bordered w-full max-w-xs"
+        required
+        autocomplete="name"
+        id="name"
+      />
+      <div class="label">
+        <span class="label-text-alt"
+          >We create a posting at https://sponsor.rs/name</span
+        >
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <div class="label">
+          <span class="label-text font-bold">Choose a Category *</span>
+        </div>
+        {
+						Options.categories.map((category, index) => (
+
+            <span class="text-sm">
+              {" "}
+              <input
+                class="radio"
+                type="radio"
+								value={index+1}
+                name="category"
+								required
+                aria-label={category}
+              />{" "}
+              {category}
+            </span>
+          ))
+        }
+        <div class="label">
+          <span class="label-text font-bold">Choose a Domain *</span>
+        </div>
+        {
+          Options.domains.map((domain, index) => (
+            <span class="text-sm">
+              {" "}
+              <input
+                class="radio"
+                type="radio"
+								value={index + 1}
+                name="domain"
+								required
+                aria-label={domain}
+              />{" "}
+              {domain}
+            </span>
+          ))
+        }
+        <div class="chat chat-start">
+          <div class="chat-bubble fon">About</div>
+        </div>
+        <label class="form-control">
+          <div class="label">
+            <span class="label-text font-bold">About your listing</span>
+          </div>
+          <textarea
+            name="content"
+						maxlength="300"
+            class="textarea textarea-bordered h-24 max-w-md"
+            placeholder="I have a blog with 250 readers on avg.. I have a podcast with monthly x users... We are a community with more than 400 members... I have an open source project.... "
+          ></textarea>
+          <div class="label">
+            <span class="label-text-alt"
+              >If you do not want to create an account to manage the listing
+              then please provide all the information for others to reach out to
+              you in this section.</span
+            >
+          </div>
+        </label>
+
+        <label class="form-control">
+          <div class="label">
+            <span class="label-text font-bold">What can you provide?</span>
+          </div>
+          <textarea
+            name="onOffer"
+						maxlength="300"
+            class="textarea textarea-bordered h-24 max-w-md"
+            placeholder="I can offer to place banner ads.. I can offer product placement... I can evangalize...Make videos"
+          ></textarea>
+          <div class="label">
+            <span class="label-text-alt"
+              >If you do not want to create an account to manage the listing
+              then please provide all the information for others to reach out to
+              you in this section.</span
+            >
+          </div>
+        </label>
+
+        <label class="form-control">
+          <div class="label">
+            <span class="label-text font-bold">Offerings.</span>
+          </div>
+          <textarea
+            name="priceInfo"
+						maxlength="100"
+            class="textarea textarea-bordered h-24 max-w-md"
+            placeholder="20 USD per month Banner ads. ... 40 USD for 200 newsLetter impressions"
+          ></textarea>
+          <div class="label">
+            <span class="label-text-alt">This section is optional.</span>
+          </div>
+        </label>
+
+        <div id="preview" class="flex"></div>
+
+        <div class="chat chat-start">
+          <div class="chat-bubble">Contact</div>
+        </div>
+
+        <label for="email" class="form-control label-text font-bold"
+          >Email</label
+        >
+
+        <input
+          name="email"
+          type="email"
+          placeholder="john@example.com"
+          class="input input-bordered w-full max-w-md"
+          autocomplete="email"
+          id="email"
+        />
+        <div class="label">
+          <span class="label-text-alt"
+            >We will not share your email with anyone. It is for you to manage
+            your listings.</span
+          >
+        </div>
+      </div>
+
+      <input type="submit" class="btn btn-primary max-w-sm" value="Create!" />
+    </form>
+  </div>
+</Base>

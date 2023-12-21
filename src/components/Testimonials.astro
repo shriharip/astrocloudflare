@@ -1,0 +1,25 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+	testimonials: CollectionEntry<"testimonials">;
+}
+
+const {testimonials} = Astro.props;
+
+---
+<div class="carousel rounded-box">
+{testimonials.data.values && testimonials.data.values.map((testimonial) => (
+	<div class="carousel-item">
+		<div class="card w-96 bg-base-100 shadow-xl">
+  <figure><img src={testimonial.avatar} alt= /></figure>
+  <div class="card-body">
+    <h2 class="card-title">{testimonial.name}</h2>
+    <p>{testimonial.designation}</p>
+		<p>{testimonial.content}</p>
+
+  </div>
+</div>
+	</div>
+))
+}

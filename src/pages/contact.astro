@@ -1,0 +1,65 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import { getEntry } from "astro:content";
+
+const contact = await getEntry("contact", "index");
+const { title, description, meta_title } = contact.data;
+
+const origin = Astro.url.origin;
+const posturl = `${origin}/api/contact`;
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  description={description}
+>
+  <PageHeader title={title} />
+  <section class="container">
+
+      <div class="flex">
+        <div class="mx-auto">
+          <form action={posturl} method="POST">
+            <div class="mb-2">
+              <label for="name" class="label">
+                Full Name
+              </label>
+              <input
+                id="name"
+                name="name"
+                class="input input-bordered"
+                placeholder="John Doe"
+                type="text"
+              />
+            </div>
+            <div class="mb-2">
+              <label for="email" class="label">
+                Working Mail
+              </label>
+              <input
+                id="email"
+                name="email"
+                class="input input-bordered"
+                placeholder="john.doe@email.com"
+                type="email"
+              />
+            </div>
+            <div class="mb-2">
+              <label for="message" class="label">
+                Anything else? 
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                class="textarea textarea-bordered "
+                placeholder="Message goes here..."
+                rows="8"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+
+  </section>
+</Base>

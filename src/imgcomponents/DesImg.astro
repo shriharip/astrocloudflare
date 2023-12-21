@@ -1,0 +1,27 @@
+---
+import {Image } from 'astro:assets';
+
+
+import DesignImage from './../assets/design/hal-gatewood-tZc3vjPCk-Q-unsplash.jpg';
+
+interface Props{
+	width?: number;
+	height?: number;
+}
+
+const { width, height } = Astro.props;
+
+---
+
+{
+	width && height ? <Image src={DesignImage} alt="AI Image background" widths={[
+	240, 540, 720, DesignImage.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${DesignImage.width}px`} width={width} height={height}  /> 
+	: 
+	width ? <Image src={DesignImage} alt="AI Image background" widths={[
+	240, 540, 720, DesignImage.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${DesignImage.width}px`} width={width} /> 
+	: 
+	height ? <Image src={DesignImage} alt="AI Image background" widths={[
+	240, 540, 720, DesignImage.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${DesignImage.width}px`} height={height}  /> 
+	: <Image src={DesignImage} alt="AI Image background" widths={[
+	240, 540, 720, DesignImage.width]} sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${DesignImage.width}px`}  />
+}

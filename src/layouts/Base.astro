@@ -1,0 +1,133 @@
+---
+import config from "@/config/config.json";
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
+import { ViewTransitions } from "astro:transitions";
+
+// types for frontmatters
+export interface Props {
+  title?: string;
+  meta_title?: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+  canonical?: string;
+}
+
+// distructure frontmatters
+const { title, meta_title, description, image, canonical } = Astro.props;
+const theme  = Astro.cookies.get('theme')?.value || 'nord';
+console.log(theme);
+
+
+---
+
+<!doctype html>
+<html lang="en" data-theme={theme}>
+  <head>
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- theme meta -->
+    <meta name="theme-name" content="astroplate" />
+    <meta name="msapplication-TileColor" content="catppuccin-latte" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="catppuccin-latte"
+    />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content="catppuccin-mochiato"
+    />
+    <meta name="generator" content={Astro.generator} />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=5"
+    />
+
+    <!-- title -->
+    <title>
+      {meta_title ? meta_title : title ? title : config.site.title}
+    </title>
+
+    <!-- canonical url -->
+    {canonical && <link rel="canonical" href={canonical} item-prop="url" />}
+
+    <!-- meta-description -->
+    <meta
+      name="description"
+      content={description ? description : config.metadata.meta_description}
+    />
+
+    <ViewTransitions />
+
+    <!-- author from config.json -->
+    <meta name="author" content={config.metadata.meta_author} />
+
+    <!-- og-title -->
+    <meta
+      property="og:title"
+      content={meta_title ? meta_title : title ? title : config.site.title}
+    />
+
+    <!-- og-description -->
+    <meta
+      property="og:description"
+      content={description ? description : config.metadata.meta_description}
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content={`${config.site.base_url}/${Astro.url.pathname.replace("/", "")}`}
+    />
+
+    <!-- twitter-title -->
+    <meta
+      name="twitter:title"
+      content={meta_title ? meta_title : title ? title : config.site.title}
+    />
+
+    <!-- twitter-description -->
+    <meta
+      name="twitter:description"
+      content={description ? description : config.metadata.meta_description}
+    />
+
+    <!-- og-image -->
+    <meta
+      property="og:image"
+      content={`${config.site.base_url}${
+        image ? image : config.metadata.meta_image
+      }`}
+    />
+
+    <!-- twitter-image -->
+    <meta
+      name="twitter:image"
+      content={`${config.site.base_url}${
+        image ? image : config.metadata.meta_image
+      }`}
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+ <!-- inter font -->
+ <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+ <!-- <script>
+	!function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+	posthog.init('phc_mj23FCgALRVEVltlAkLXP9Le1lp5kIdS7YqeXgbhj1a',{api_host:'https://eu.posthog.com'})
+</script> -->
+	</head>
+  <body>
+    <Header />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,39 @@
+---
+import AIImg from "@/imgcomponents/AIImg.astro";
+import HealthImg from "@/imgcomponents/HealthImg.astro";
+import DesImg from "./DesImg.astro";
+import ProgImg from "./ProgImg.astro";
+import HardwareImg from "./HardwareImg.astro";
+import EduImg from "./EduImg.astro";
+import ETImage from "./ETImage.astro";
+import TravelImg from "./TravelImg.astro";
+import FoodImg from "./FoodImg.astro";
+import FinanceImg from "./FinanceImg.astro";
+import BusImg from "./BusImg.astro";
+import MarkImg from "./MarkImg.astro";
+import GameImg from "./GameImg.astro";
+import OtherImg from "./OtherImg.astro";
+
+interface Props {
+  domain: number;
+}
+
+const { domain } = Astro.props;
+---
+<div class="opacity-30">
+{domain === 1 && <HealthImg />}
+{domain === 2 && <FinanceImg />}
+{domain === 3 && <BusImg />}
+{domain === 4 && <MarkImg />}
+{domain === 5 && <DesImg />}
+{domain === 6 && <GameImg val={2} />}
+{domain === 7 && <ProgImg val={1} />}
+{domain === 8 && <AIImg />}
+{domain === 9 && <HardwareImg />}
+{domain === 10 && <ProgImg val={2} />}
+{domain === 11 && <EduImg />}
+{domain === 12 && <ETImage />}
+{domain === 13 && <TravelImg />}
+{domain === 14 && <FoodImg />}
+{domain === 15 && <OtherImg val={1} />}
+</div>
